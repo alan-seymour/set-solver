@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import { ShapeType } from "./ShapeType";
 import cv from "@techstark/opencv-js";
 import { growContour } from "../Helpers/contourHelpers";
@@ -15,11 +16,13 @@ export class SetShape {
   meanInside?: cv.Scalar;
   meanOutside?: cv.Scalar;
   extent: number;
+  id: string;
 
   constructor(contour: cv.Mat, minRect: cv.RotatedRect, shapeExtent: number) {
     const { width, height } = minRect.size;
     const minLength = Math.min(width, height);
 
+    this.id = uuid();
     this.minRect = minRect;
     this.minLength = Math.min(minRect.size.width, minRect.size.height);
     this.contour = contour;
